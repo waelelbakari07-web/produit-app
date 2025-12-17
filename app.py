@@ -1,17 +1,29 @@
-while True:
-    X = int(input("entrez le premier nombre positif : "))
-    Y = int(input("entrez le deuxieme nombre positif : "))
-    if (X > 0) and (Y > 0):
-        break
-if (X == 0) or (Y == 0):
-    P = 0
-else:
-    if (X > Y):
-        P = 0
-        for i in range (1,Y + 1):
-            P = P + X
+import streamlit as st
+
+# إعدادات الصفحة
+st.set_page_config(page_title="آلة حساب الضرب", page_icon="🔢")
+st.title("🔢 آلة حساب الضرب")
+st.write("هذا الموقع يحسب لك الضرب من خلال الجمع المتكرر.")
+
+# واجهة إدخال الأرقام
+X = st.number_input("أدخل العدد الأول (X):", step=1, value=0)
+Y = st.number_input("أدخل العدد الثاني (Y):", step=1, value=0)
+
+# زر الحساب
+if st.button("احسب النتيجة"):
+    if X < 0 or Y < 0:
+        st.error("خطأ: يرجى إدخال أعداد موجبة!")
     else:
-        P = 0 
-        for i in range (1,X + 1):
-            P = P + Y
-print("le produit est " ,P)
+        P = 0
+        if X == 0 or Y == 0:
+            P = 0
+        else:
+            if X > Y:
+                for i in range(1, int(Y) + 1):
+                    P = P + X
+            else:
+                for i in range(1, int(X) + 1):
+                    P = P + Y
+        st.balloons() # زواق نفاخات
+        st.success(f"✅ النتيجة النهائية هي: {P}")
+    
